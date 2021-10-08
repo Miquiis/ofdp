@@ -63,14 +63,12 @@ export default function AuthProvider({ children }) {
         return {characters: [], role: 0}
     }
 
-    async function createUser(username) {
-        if (currentUser == null) return;
-
-        const userRef = firestore.doc(`users/${currentUser.uid}`);
+    async function createUser(user, username) {
+        const userRef = firestore.doc(`users/${user.uid}`);
         const snapshot = await userRef.get();
 
         if (!snapshot.exists) {
-            const { email } = auth;
+            const { email } = user;
             const createdAt = new Date();
 
             try {

@@ -27,9 +27,13 @@ export default function Signup() {
         try {
             setError('')
             setLoading(true)
-            const user = await signup(emailRef.current.value, passwordRef.current.value)
-            await createUser(user.user, usernameRef.current.value)
-            history.push('/')
+
+            const username = usernameRef.current.value;
+
+            signup(emailRef.current.value, passwordRef.current.value).then((user) => {
+                createUser(user.user, username)
+            })
+
         } catch {
             setError('Failed to create an account')
         }

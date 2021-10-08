@@ -54,7 +54,6 @@ export default function ProgressBar({ name, color, bgColor, value, maxValue }) {
 
     const changeBorder = (style) => {
         if (value < maxValue) {
-            console.log("Less");
             return {
                 backgroundColor: color,
                 borderTopRightRadius: "0px",
@@ -63,7 +62,6 @@ export default function ProgressBar({ name, color, bgColor, value, maxValue }) {
                 ...style
             }
         } else {
-            console.log("Bigger");
             return {
                 backgroundColor: color,
                 borderTopRightRadius: "5px",

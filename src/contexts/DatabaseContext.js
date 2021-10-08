@@ -347,7 +347,7 @@ export default function DatabaseProvider({ children }) {
 
         if (snapshot.exists) {
             let characters = JSON.parse(snapshot.get("characters"));
-            if (characters.contains(characterUid)) return;
+            if (characters.includes(characterUid)) return;
             characters.push(characterUid);
             await updateDoc(userRef, {
                 characters: JSON.stringify(characters)

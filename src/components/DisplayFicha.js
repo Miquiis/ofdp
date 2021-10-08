@@ -150,7 +150,6 @@ export default function DisplayFicha({ character, empty }) {
 
     function handleOpenFicha() {
         openFicha(character)
-        console.log(character)
     }
 
     function handleChangeUser() {

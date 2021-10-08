@@ -67,7 +67,6 @@ export default function Ficha() {
     const { basicInfo, stats, attributes, combat, skills, inventory } = ficha;
     
     function handleChange(key, value, e) {
-        console.log(e.target.checked)
         key[value] = e.target.value;
         updateFicha(ficha)
     }

@@ -11,7 +11,7 @@ export function useCharacters() {
 export default function CharactersProvider({ children }) {
     const [characters, setCharacters] = useState([])
     const [loading, setLoading] = useState(true)
-    const { currentUser } = useAuth()
+    const { currentUser, userProfile } = useAuth()
     const { subscribeCharacters } = useDatabase()
 
     function getInventoryWeight(id) {
@@ -30,6 +30,11 @@ export default function CharactersProvider({ children }) {
         {
             setLoading(false)
             return;
+        }
+
+        if (userProfile.characters.length === 0)
+        {
+            setLoading(false)
         }
 
         const unsubscribe = subscribeCharacters((characters) => {

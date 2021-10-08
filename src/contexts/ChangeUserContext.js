@@ -202,6 +202,7 @@ export default function ChangeUserProvider({ children }) {
     function addUser(username) {
         async function addUser() {
             const user = await fetchUserByName(username)
+            if (user == null) return;
             await addCharacterToUser(user.id, character.id)
             setCharacter({...character})
         }
