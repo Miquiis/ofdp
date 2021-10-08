@@ -4,12 +4,16 @@ import { useAuth } from '../contexts/AuthContext'
 import { useFicha } from '../contexts/FichaContext'
 
 export default function FichaRoute({ component: Component, ...rest }) {
-    const { currentUser } = useAuth()
+    const { currentUser, userProfile } = useAuth()
     const { ficha } = useFicha()
+
+    console.log(currentUser)
+    console.log(userProfile)
+    console.log(ficha)
 
     return (
         <Route {...rest} render={props => {
-            return currentUser && ficha ? <Component {...props} /> : <Redirect to="/"/>
+            return currentUser && userProfile && ficha ? <Component {...props} /> : <Redirect to="/"/>
         }}>
         </Route>
     )

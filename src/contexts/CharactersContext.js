@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
+import { useAuth } from './AuthContext'
 import { useDatabase } from './DatabaseContext'
 
 const CharactersContext = React.createContext()
@@ -10,7 +11,7 @@ export function useCharacters() {
 export default function CharactersProvider({ children }) {
     const [characters, setCharacters] = useState([])
     const [loading, setLoading] = useState(true)
-
+    const { currentUser } = useAuth()
     const { subscribeCharacters } = useDatabase()
 
     function getInventoryWeight(id) {
@@ -23,9 +24,16 @@ export default function CharactersProvider({ children }) {
     }
 
     useEffect(() => {
+        setLoading(true)
+
+        if (currentUser == null)
+        {
+            setLoading(false)
+            return;
+        }
 
         const unsubscribe = subscribeCharacters((characters) => {
-            console.log(characters.length)
+            setLoading(true)
             setCharacters(characters.map(doc => ({
                 id: doc.id,
                 ...JSON.parse(doc.get("ficha"))

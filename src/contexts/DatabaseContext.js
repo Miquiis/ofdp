@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { firestore } from '../firebase';
 import { documentId } from "firebase/firestore"
 import { useAuth } from './AuthContext';
-import { useCharacters } from './CharactersContext';
 import { collection, query, where, onSnapshot, updateDoc, deleteDoc } from "firebase/firestore";
 
 const DatabaseContext = React.createContext()
@@ -298,7 +297,6 @@ function getDefaultCharacter() {
 export default function DatabaseProvider({ children }) {
 
     const { currentUser, userProfile } = useAuth()
-    const { characters } = userProfile;
 
     async function createCharacter() {
         if (currentUser == null || userProfile == null) return;
@@ -412,7 +410,9 @@ export default function DatabaseProvider({ children }) {
     }
 
     async function fetchCharacters() {
+        if (userProfile == null) return;
         let Characters = [];
+        const { characters } = userProfile;
 
         if (userProfile.role === 9) {
             await firestore.collection("characters").get().then((querySnapshot) => {
@@ -433,7 +433,9 @@ export default function DatabaseProvider({ children }) {
     }
 
     function subscribeCharacters(update) {
+        if (userProfile == null) return;
         let q = null;
+        const { characters } = userProfile;
 
         if (userProfile.role === 9) {
             q = query(collection(firestore, "characters"));

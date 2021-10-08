@@ -147,11 +147,10 @@ export default function DisplayFicha({ character, empty }) {
     const { getInventoryWeight } = useCharacters()
     const { openFicha, deleteFicha } = useFicha()
     const { open } = useChangeUser()
-    const history = useHistory()
 
     function handleOpenFicha() {
         openFicha(character)
-        history.push("/ficha")
+        console.log(character)
     }
 
     function handleChangeUser() {

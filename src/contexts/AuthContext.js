@@ -8,8 +8,8 @@ export function useAuth() {
 }
 
 export default function AuthProvider({ children }) {
-    const [currentUser, setCurrentUser] = useState()
-    const [userProfile, setUserProfile] = useState()
+    const [currentUser, setCurrentUser] = useState(null)
+    const [userProfile, setUserProfile] = useState(null)
     const [loading, setLoading] = useState(true)
 
     function signup(email, password) {
@@ -21,6 +21,8 @@ export default function AuthProvider({ children }) {
     }
 
     function logout() {
+        setUserProfile(null)
+        setCurrentUser(null)
         return auth.signOut()
     }
 
@@ -44,7 +46,7 @@ export default function AuthProvider({ children }) {
     }
 
     async function fetchUser(user) {
-        if (user == null) return;
+        if (user == null) return null;
 
         const userRef = firestore.doc(`users/${user.uid}`);
         const snapshot = await userRef.get();
@@ -101,6 +103,7 @@ export default function AuthProvider({ children }) {
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(async user => {
+            setLoading(true)
             setCurrentUser(user)
             const o = await fetchUser(user);
             setUserProfile(o)

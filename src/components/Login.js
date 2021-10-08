@@ -18,7 +18,8 @@ export default function Login() {
             setError('')
             setLoading(true)
             await login(emailRef.current.value, passwordRef.current.value)
-            history.push('/')
+            setLoading(false)
+            return;
         } catch {
             setError('Failed to create log in')
         }

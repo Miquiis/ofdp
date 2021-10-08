@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
+import { useHistory } from 'react-router';
 import { useDatabase } from './DatabaseContext';
 
 const FichaContext = React.createContext()
@@ -20,16 +21,18 @@ function getNextCombatId(combat) {
 }
 
 export default function FichaProvider({ children }) {
-    const [ficha, setFicha] = useState()
+    const [ficha, setFicha] = useState(null)
     const [loading, setLoading] = useState(true)
-    const [startFicha, setStartFicha] = useState();
+    const [startFicha, setStartFicha] = useState(null);
     const { saveCharacter } = useDatabase()
+    const history = useHistory()
 
     function openFicha(ficha) {
         setStartFicha(JSON.parse(JSON.stringify(ficha)))
         setFicha(
             ficha
         )
+        history.push("/ficha")
     }
 
     function saveFicha() {
