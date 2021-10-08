@@ -6,14 +6,14 @@ import RolagemProvider from '../contexts/RolagemContext'
 
 export default function FichaProviders({ children }) {
     return (
-        <FichaProvider>
-            <CharactersProvider>
-                <ChangeUserProvider>
-                    <RolagemProvider>
+        <RolagemProvider>
+            <FichaProvider>
+                <CharactersProvider>
+                    <ChangeUserProvider>
                         {children}
-                    </RolagemProvider>
-                </ChangeUserProvider>
-            </CharactersProvider>
-        </FichaProvider>
+                    </ChangeUserProvider>
+                </CharactersProvider>
+            </FichaProvider>
+        </RolagemProvider>
     )
 }
